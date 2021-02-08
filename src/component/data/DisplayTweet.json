@@ -3,17 +3,17 @@
 [
 {    
     "tweet":"Hi, this is the 1st tweet",
-    "count":0,
+    "count":1,
     "tweeted": false
 },
 {
     "tweet":"Hello, this is the 2nd tweet",
-    "count":4,
+    "count":2,
     "tweeted": false
 },
 {
     "tweet":"Hey, 3rd tweet",
-    "count":7,
+    "count":2,
     "tweeted": false
 }
 ]
