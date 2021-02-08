@@ -6,6 +6,8 @@ Here the user can choose to retweet any existing tweet and this will redirect th
 The top ten trending tweets page will allow the user to see the top ten tweets as well as retweet them.
 
 This app has been deployed on GCP's AppEngine but can be run on local environment as well.
+AppEngine was chosen as this version of the app does not, currently, have a database as the data is stored in memory. Hence, Google's PaaS was the perfect solution for hosting this basic version of the application.
+To further scale the application as a fullstack app, the app, along with the database hosting and backend frameworks, can be migrated from AppEngine onto Google's Compute Engine Service or AWS's EBS or on an EC2 instance, the cloud service chosen can vary based on different factors.
 You can access the app at : https://yojee-304209.ts.r.appspot.com/
 
 To run the react app, following instruction can be followed:
