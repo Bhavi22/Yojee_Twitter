@@ -37,7 +37,7 @@ const ReTweet = (props) => {
     }
 
     useEffect(() => {
-        console.log(props);
+
         if (props.location.state == undefined) {
             setDisplayTweets(DisplayTweets);
         }
@@ -52,47 +52,45 @@ const ReTweet = (props) => {
         obj.sort((a, b) => b.count - a.count);
         obj = obj.slice(0, size);
         setTopTen(obj);
-        console.log(topTen);
+
 
     }, [displayTweets]);
     const Retweeting = (id) => {
 
         for (let i = 0; i < topTen.length; i++) {
-            if (id == i) {                
-                    if(topTen[i].tweeted==false)
-                    {
-                        topTen[i].count = topTen[i].count + 1;
-                        topTen[i].tweeted= true;
-                        setTopTen([...topTen]);
-                        var obj = [...topTen];
-                        obj.sort((a, b) => b.count - a.count);
-                        obj = obj.slice(0, size);
-                        setTopTen(obj);
-                    }
-                else 
-                {
-                    console.log("I am here");
+            if (id == i) {
+                if (topTen[i].tweeted == false) {
+                    topTen[i].count = topTen[i].count + 1;
+                    topTen[i].tweeted = true;
+                    setTopTen([...topTen]);
+                    var obj = [...topTen];
+                    obj.sort((a, b) => b.count - a.count);
+                    obj = obj.slice(0, size);
+                    setTopTen(obj);
+                }
+                else {
+
                     setErrorMessage("Cannot tweet the same message more than once");
                     setMessagePresent(true);
-                }       
+                }
             }
         }
 
     }
     useEffect(() => {
-        console.log(topTen);
+
     }, [topTen]);
 
     return (
         <Style>
-                  <Bootstrap.Modal show={messagePresent} onHide={handleClose}>
-                        <Bootstrap.Modal.Header closeButton>
-                            <Bootstrap.Modal.Title>Message</Bootstrap.Modal.Title>
-                        </Bootstrap.Modal.Header>
-                        <Bootstrap.Modal.Body>{errorMessage}</Bootstrap.Modal.Body>
-                    </Bootstrap.Modal>
+            <Bootstrap.Modal show={messagePresent} onHide={handleClose}>
+                <Bootstrap.Modal.Header closeButton>
+                    <Bootstrap.Modal.Title>Message</Bootstrap.Modal.Title>
+                </Bootstrap.Modal.Header>
+                <Bootstrap.Modal.Body>{errorMessage}</Bootstrap.Modal.Body>
+            </Bootstrap.Modal>
             <div className='center'>
-                
+
                 <Link to={{
                     pathname: "/tweets",
                     state: {

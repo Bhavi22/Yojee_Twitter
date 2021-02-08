@@ -62,7 +62,7 @@ const TwitterClone = (props) => {
             setMessagePresent(true);
         }
 
-        setDisplayTweets(displayTweets.concat({ 'tweet': newTweet, 'count': 0,'tweeted':false }));
+        setDisplayTweets(displayTweets.concat({ 'tweet': newTweet, 'count': 0, 'tweeted': false }));
         setCharCount(140);
 
         setNewTweet("");
@@ -74,31 +74,27 @@ const TwitterClone = (props) => {
 
         for (let i = 0; i < displayTweets.length; i++) {
             if (id == i) {
-                if(displayTweets[i].tweeted==false)
-                {
+                if (displayTweets[i].tweeted == false) {
                     displayTweets[i].count = displayTweets[i].count + 1;
-                    displayTweets[i].tweeted= true;
+                    displayTweets[i].tweeted = true;
                     setDisplayTweets([...displayTweets])
                 }
-            
-            else 
-            {
-                setErrorMessage("Cannot tweet the same message more than once");
-                setMessagePresent(true);
-            }
-        }
 
-    }
-};
+                else {
+                    setErrorMessage("Cannot tweet the same message more than once");
+                    setMessagePresent(true);
+                }
+            }
+
+        }
+    };
     var tweetsSet = false;
 
     useEffect(() => {
         if ('location' in props && !tweetsSet) {
-            console.log(props.location.state.displayTweets);
             setDisplayTweets(props.location.state.displayTweets);
             tweetsSet = true;
         }
-        console.log(props)
     }, [props]);
 
 
