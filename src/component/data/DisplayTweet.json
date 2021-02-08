@@ -1,0 +1,16 @@
+
+
+[
+{    
+    "tweet":"Hi, this is the 1st tweet",
+    "count":0
+},
+{
+    "tweet":"Hello, this is the 2nd tweet",
+    "count":4
+},
+{
+    "tweet":"Hey, 3rd tweet",
+    "count":7
+}
+]
