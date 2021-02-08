@@ -5,6 +5,7 @@ import { faRetweet } from '@fortawesome/free-solid-svg-icons';
 import * as Bootstrap from "react-bootstrap";
 import { Link } from "react-router-dom";
 import * as Icons from 'react-bootstrap-icons';
+import DisplayTweets from './data/DisplayTweet.json';
 
 import ReTweet from "./ReTweet.js";
 
@@ -28,18 +29,7 @@ font-style: italic;
 const TwitterClone = (props) => {
 
 
-    const [displayTweets, setDisplayTweets] = useState([{
-        'tweet': "Hi, this is the 1st tweet",
-        'count': 0
-    },
-    {
-        'tweet': "Hello, this is the 2nd tweet",
-        'count': 4
-    },
-    {
-        'tweet': "Hey, 3rd tweet",
-        'count': 7
-    }]);
+    const [displayTweets, setDisplayTweets] = useState(DisplayTweets);
 
 
     const [newTweet, setNewTweet] = useState("");
@@ -72,7 +62,7 @@ const TwitterClone = (props) => {
             setMessagePresent(true);
         }
 
-        setDisplayTweets(displayTweets.concat({ 'tweet': newTweet, 'count': 0 }));
+        setDisplayTweets(displayTweets.concat({ 'tweet': newTweet, 'count': 0,'tweeted':false }));
         setCharCount(140);
 
         setNewTweet("");
@@ -84,12 +74,22 @@ const TwitterClone = (props) => {
 
         for (let i = 0; i < displayTweets.length; i++) {
             if (id == i) {
-                displayTweets[i].count = displayTweets[i].count + 1;
-                setDisplayTweets([...displayTweets])
+                if(displayTweets[i].tweeted==false)
+                {
+                    displayTweets[i].count = displayTweets[i].count + 1;
+                    displayTweets[i].tweeted= true;
+                    setDisplayTweets([...displayTweets])
+                }
+            
+            else 
+            {
+                setErrorMessage("Cannot tweet the same message more than once");
+                setMessagePresent(true);
             }
         }
 
     }
+};
     var tweetsSet = false;
 
     useEffect(() => {
@@ -101,12 +101,12 @@ const TwitterClone = (props) => {
         console.log(props)
     }, [props]);
 
-    
+
     return (
         <Style>
 
             <div className='center'>
-                <h1>Twitter Test</h1>
+                <h5>Twitter Clone</h5>
                 <div className='card'>
                     <Bootstrap.Modal show={messagePresent} onHide={handleClose}>
                         <Bootstrap.Modal.Header closeButton>

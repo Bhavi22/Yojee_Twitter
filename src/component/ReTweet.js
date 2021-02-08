@@ -2,9 +2,9 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faRetweet } from '@fortawesome/free-solid-svg-icons';
-
 import * as Icons from 'react-bootstrap-icons';
 import { Link } from 'react-router-dom';
+import * as Bootstrap from "react-bootstrap";
 import DisplayTweets from './data/DisplayTweet.json';
 
 
@@ -25,9 +25,16 @@ font-style: italic;
 `
 
 const ReTweet = (props) => {
-    const size = 5;
+    const size = 10;
     const [topTen, setTopTen] = useState([]);
+    const [messagePresent, setMessagePresent] = useState(false);
+    const [errorMessage, setErrorMessage] = useState("");
     const [displayTweets, setDisplayTweets] = useState([]);
+
+    const handleClose = () => {
+        setMessagePresent(false);
+        setErrorMessage("");
+    }
 
     useEffect(() => {
         console.log(props);
@@ -51,13 +58,23 @@ const ReTweet = (props) => {
     const Retweeting = (id) => {
 
         for (let i = 0; i < topTen.length; i++) {
-            if (id == i) {
-                topTen[i].count = topTen[i].count + 1;
-                setTopTen([...topTen])
-                var obj = [...topTen];
-                obj.sort((a, b) => b.count - a.count);
-                obj = obj.slice(0, size);
-                setTopTen(obj);
+            if (id == i) {                
+                    if(topTen[i].tweeted==false)
+                    {
+                        topTen[i].count = topTen[i].count + 1;
+                        topTen[i].tweeted= true;
+                        setTopTen([...topTen]);
+                        var obj = [...topTen];
+                        obj.sort((a, b) => b.count - a.count);
+                        obj = obj.slice(0, size);
+                        setTopTen(obj);
+                    }
+                else 
+                {
+                    console.log("I am here");
+                    setErrorMessage("Cannot tweet the same message more than once");
+                    setMessagePresent(true);
+                }       
             }
         }
 
@@ -68,7 +85,14 @@ const ReTweet = (props) => {
 
     return (
         <Style>
+                  <Bootstrap.Modal show={messagePresent} onHide={handleClose}>
+                        <Bootstrap.Modal.Header closeButton>
+                            <Bootstrap.Modal.Title>Message</Bootstrap.Modal.Title>
+                        </Bootstrap.Modal.Header>
+                        <Bootstrap.Modal.Body>{errorMessage}</Bootstrap.Modal.Body>
+                    </Bootstrap.Modal>
             <div className='center'>
+                
                 <Link to={{
                     pathname: "/tweets",
                     state: {
@@ -78,7 +102,7 @@ const ReTweet = (props) => {
                 }}><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-arrow-90deg-left" viewBox="0 0 16 16">
                         <path fill-rule="evenodd" d="M1.146 4.854a.5.5 0 0 1 0-.708l4-4a.5.5 0 1 1 .708.708L2.707 4H12.5A2.5 2.5 0 0 1 15 6.5v8a.5.5 0 0 1-1 0v-8A1.5 1.5 0 0 0 12.5 5H2.707l3.147 3.146a.5.5 0 1 1-.708.708l-4-4z" />
                     </svg></Link>
-                <h4>Trending Tweets</h4>
+                <h5>Trending Tweets</h5>
                 {topTen &&
                     topTen.map((topTen, index) => (
                         <>
