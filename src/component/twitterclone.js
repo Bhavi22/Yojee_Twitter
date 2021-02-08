@@ -57,15 +57,15 @@ const TwitterClone = (props) => {
             setErrorMessage('Cannot create empty tweet!Please add text');
             setMessagePresent(true);
         }
-        if (newTweet.length > 140) {
+     else   if (newTweet.length > 140) {
             setErrorMessage('Exceeds 140 Characters');
             setMessagePresent(true);
         }
-
+else{
         setDisplayTweets(displayTweets.concat({ 'tweet': newTweet, 'count': 0, 'tweeted': false }));
-        setCharCount(140);
-
+        setCharCount(140);        
         setNewTweet("");
+}
     }
 
 
