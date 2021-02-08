@@ -6,6 +6,7 @@ Here the user can choose to retweet any existing tweet and this will redirect th
 The top ten trending tweets page will allow the user to see the top ten tweets as well as retweet them.
 
 This app has been deployed on GCP's AppEngine but can be run on local environment as well.
+You can access the app at : https://yojee-304209.ts.r.appspot.com/
 
 To run the react app, following instruction can be followed:
 
